@@ -21,7 +21,7 @@
     <form class="create-movie-form">
         <h1>jQuery Movie</h1>
         <label for="title" class="title">Title
-            <input type="text" name="title" id="title" placeholder="Movie Title..." required>
+            <input type="text" name="title" id="title" placeholder="Movie Title..." minlength="2" required>
         </label>
         <label for="rating" class="rating">Rating
             <input type="number" min="0" max="10" name="rating" id="rating" placeholder="Movie Rating..." required>
@@ -30,6 +30,33 @@
     </form>
 
     <div class="movies"></div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
+        integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+
+    <!-- custom jQuery script -->
+    <script>
+        $('.create-movie-form').on('submit', (e) => {
+            e.preventDefault()
+
+            // get movie title and rating
+            const [$movieTitle, $rating] = $('input')
+
+            // create remove button with event listener to remove movie
+            const $removeBtn = $('<button>Remove</button>').attr('type', 'button')
+            $removeBtn.on('click', function () {
+                console.log($(this).parent().remove())
+            })
+
+            // create a movie div
+            const $movieDiv = $("<div></div>").attr('class', 'movie')
+
+            // add movie inside the movie div and append it to movies div
+            $movieDiv.append(`<p>${$movieTitle.value}</p><p>${$rating.value}</p>`).append($removeBtn)
+            $movieDiv.appendTo('.movies')
+        })
+    </script>
 </body>
 
 </html>
